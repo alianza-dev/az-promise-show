@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>az-promise-show</title>
+  <style>.ng-cloak{display:none}</style>
+</head>
+<body ng-app="myApp">
+<div ng-controller="MainCtrl as vm" class="ng-cloak">
+  <div>
+    <div>
+      <strong>Show Example</strong>
+    </div>
+    <button ng-click="vm.theFirstRun()">Run 1</button>
+    <div az-promise-show="vm.theFirstPromise">
+      I show when the promise is in flight
+    </div>
+  </div>
+  <div>
+    <div>
+      <strong>Hide Example</strong>
+    </div>
+    <button ng-click="vm.theSecondRun()">Run 2</button>
+    <div az-promise-hide="vm.theSecondPromise">
+      I show when the promise is resolved or not set
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+<script src="../dist/az-promise-show.js"></script>
+<script>
+  angular
+    .module('myApp', ['azPromiseShow'])
+    .controller('MainCtrl', function MainCtrl($timeout) {
+      var vm = this;
+
+      vm.theFirstRun = theFirstRun;
+      vm.theSecondRun = theSecondRun;
+
+      function theFirstRun() {
+        vm.theFirstPromise = $timeout(angular.noop, 1500);
+      }
+      function theSecondRun() {
+        vm.theSecondPromise = $timeout(angular.noop, 1500);
+      }
+    });
+</script>
+</body>
+</html>
