@@ -15,10 +15,12 @@
     "babel-loader": "5.1.4",
     "better-npm-run": "benoror/better-npm-run",
     "chai": "3.0.0",
+    "codecov.io": "0.1.2",
     "eslint": "0.23.0",
     "eslint-loader": "0.14.0",
     "isparta": "3.0.3",
     "isparta-loader": "0.2.0",
+    "istanbul": "0.3.15",
     "karma": "0.12.36",
     "karma-coverage": "0.4.2",
     "karma-firefox-launcher": "0.1.6",
@@ -38,6 +40,10 @@
     "build:prod": "better-npm-run build:prod",
     "build": "npm run build:dist & npm run build:prod",
     "test": "better-npm-run test",
+    "test:ci": "npm run test:single && npm run check-coverage",
+    "test:single": "better-npm-run test:single",
+    "check-coverage": "istanbul check-coverage --statements 91 --branches 85 --functions 89 --lines 90",
+    "report-coverage": "echo 'Reporting coverage stats' && cat ./coverage/lcov.info | codecov",
     "deploy": "surge -p demo -d az-promise-show.surge.sh",
     "release": "with-package git commit -am pkg.version && with-package git tag pkg.version && git push && npm publish && git push --tags"
   },
@@ -48,6 +54,13 @@
         "COVERAGE": "true"
       },
       "command": "karma start"
+    },
+    "test:single": {
+      "env": {
+        "NODE_ENV": "test",
+        "COVERAGE": "true"
+      },
+      "command": "karma start --single-run"
     },
     "build:dist": {
       "env": {
@@ -83,8 +96,15 @@
   "homepage": "https://github.com/kentcdodds/az-promise-show#readme",
   "kcdCommon": {
     "webpack": {
-      "externals": {
-        "angular": "angular"
+      "development": {
+        "externals": {
+          "angular": "angular"
+        }
+      },
+      "production": {
+        "externals": {
+          "angular": "angular"
+        }
       }
     }
   }
