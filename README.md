@@ -48,5 +48,14 @@ angular.module('yourModule', ['azPromiseShow']);
 ```html
 <div az-promise-show="aPromise" az-promise-show-hide-class="display-none">
   By default, azPromiseShow uses 'ng-hide', but you can specify your own if you want.
+  Or, you can use the azPromiseShowOptions service.
 </div>
+```
+
+#### azPromiseShowOptions
+
+```javascript
+angular.module('yourModule').run(function(azPromiseShowOptions) {
+  azPromiseShowOptions.className = 'display-none';
+});
 ```
