@@ -10,6 +10,7 @@ if (!angular.version) {
 
 export default root.angular
   .module('azPromiseShow', [])
+  .constant('azPromiseShowOptions', {className: 'ng-hide'})
   .directive('azPromiseShow', azPromise(true))
   .directive('azPromiseHide', azPromise(false))
   .name; // <-- exported property
@@ -18,12 +19,12 @@ function azPromise(show) {
   var attr = show ? 'azPromiseShow' : 'azPromiseHide';
   var changeTo = show ? 'removeClass' : 'addClass';
   var changeFrom = show ? 'addClass' : 'removeClass';
-  return /* @ngInject */ function azPromiseShowDefinition($log) {
+  return /* @ngInject */ function azPromiseShowDefinition($log, azPromiseShowOptions) {
     return {
       restrict: 'A',
       link: function(scope, el, attrs) {
-        var displayNone = attrs.azPromiseShowHideClass || 'ng-hide';
         scope.$watch(attrs[attr], function(newVal) {
+          var displayNone = attrs.azPromiseShowHideClass || azPromiseShowOptions.className;
           if (newVal) {
             if (!newVal.finally) {
               $log.error('Passed ', newVal, 'to', el, 'on scope', scope);

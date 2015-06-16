@@ -7,12 +7,13 @@ describe('azPromiseShow', function() {
   beforeEach(window.module(ngModuleName));
 
   const basicTemplate = '<div az-promise-show="aPromise"></div>';
-  let scope, el, $timeout, $compile;
+  let scope, el, $timeout, $compile, options;
 
-  beforeEach(inject((_$compile_, $rootScope, _$timeout_) => {
+  beforeEach(inject((_$compile_, $rootScope, _$timeout_, azPromiseShowOptions) => {
     $timeout = _$timeout_;
     $compile = _$compile_;
     scope = $rootScope.$new();
+    options = azPromiseShowOptions;
   }));
 
   it('should initialize as display none', () => {
@@ -47,6 +48,17 @@ describe('azPromiseShow', function() {
     $timeout.flush();
     scope.$digest();
     expectShowing(customClassName);
+  });
+
+  it(`should allow you to configure a custom class using 'azPromiseShowOptions'`, () => {
+    options.className = 'custom-class';
+    compileAndDigest();
+    scope.aPromise = $timeout(() => {});
+    scope.$digest();
+    expectShowing(options.className);
+    $timeout.flush();
+    scope.$digest();
+    expectHidden(options.className);
   });
 
   function compileAndDigest(template = basicTemplate) {
