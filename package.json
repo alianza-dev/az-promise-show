@@ -1,6 +1,6 @@
 {
   "name": "az-promise-show",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "angular directives to show or hide an element based on the state of a promise",
   "main": "dist/az-promise-show.js",
   "peerDependencies": {
