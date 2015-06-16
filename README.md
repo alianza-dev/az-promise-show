@@ -11,6 +11,42 @@ Directives to show or hide an element based on the resolved state of an angular 
 See [the example](http://az-promise-show.surge.sh/) and
 [the example code](https://github.com/alianza-dev/az-promise-show/blob/master/demo/index.html)
 
-## Basic Docs
+## Docs
 
-`azPromiseShowHideClass`
+### Usage
+
+#### Install the module
+
+`$ npm install az-promise-show --save`
+
+Or just download it from the dist directory.
+
+#### Depend on the module
+
+```javascript
+angular.module('yourModule', ['azPromiseShow']);
+```
+
+#### az-promise-show
+
+```html
+<div az-promise-show="aPromise">
+  I'm only shown when the promise is in flight
+</div>
+```
+
+#### az-promise-hide
+
+```html
+<div az-promise-hide="anotherPromise">
+  I'm only show when the promise is not in flight
+</div>
+```
+
+#### az-promise-show-hide-class
+
+```html
+<div az-promise-show="aPromise" az-promise-show-hide-class="display-none">
+  By default, azPromiseShow uses 'ng-hide', but you can specify your own if you want.
+</div>
+```

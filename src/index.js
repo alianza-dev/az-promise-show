@@ -12,7 +12,7 @@ export default root.angular
   .module('azPromiseShow', [])
   .directive('azPromiseShow', azPromise(true))
   .directive('azPromiseHide', azPromise(false))
-  .name; // <-- exported poprerty
+  .name; // <-- exported property
 
 function azPromise(show) {
   var attr = show ? 'azPromiseShow' : 'azPromiseHide';
