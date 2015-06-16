@@ -1,3 +1,13 @@
+# 1.1.2
+
+## Docs update
+
+- Adding docs for `azPromiseShowOptions`
+
+## Other Changes
+
+- Adding bower support [#1](/../../issues/1)
+
 # 1.1.1
 
 ## Bug Fixes
