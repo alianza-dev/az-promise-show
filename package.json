@@ -42,7 +42,7 @@
     "test": "better-npm-run test",
     "test:ci": "npm run test:single && npm run check-coverage",
     "test:single": "better-npm-run test:single",
-    "check-coverage": "istanbul check-coverage --statements 91 --branches 85 --functions 89 --lines 90",
+    "check-coverage": "istanbul check-coverage --statements 96 --branches 94 --functions 100 --lines 95",
     "report-coverage": "echo 'Reporting coverage stats' && cat ./coverage/lcov.info | codecov",
     "deploy": "surge -p demo -d az-promise-show.surge.sh",
     "release": "with-package git commit -am pkg.version && with-package git tag pkg.version && git push && npm publish && git push --tags"

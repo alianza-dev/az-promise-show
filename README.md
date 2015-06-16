@@ -10,3 +10,7 @@ Directives to show or hide an element based on the resolved state of an angular 
 
 See [the example](http://az-promise-show.surge.sh/) and
 [the example code](https://github.com/alianza-dev/az-promise-show/blob/master/demo/index.html)
+
+## Basic Docs
+
+`azPromiseShowHideClass`

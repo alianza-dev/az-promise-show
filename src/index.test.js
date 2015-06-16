@@ -6,32 +6,59 @@ import {expect} from 'chai';
 describe('azPromiseShow', function() {
   beforeEach(window.module(ngModuleName));
 
-  var scope, el;
-  var displayNone = 'ng-hide';
-  beforeEach(inject(($compile, $rootScope) => {
+  const basicTemplate = '<div az-promise-show="aPromise"></div>';
+  let scope, el, $timeout, $compile;
+
+  beforeEach(inject((_$compile_, $rootScope, _$timeout_) => {
+    $timeout = _$timeout_;
+    $compile = _$compile_;
     scope = $rootScope.$new();
-    el = $compile('<div az-promise-show="aPromise"></div>')(scope);
-    scope.$digest();
   }));
 
   it('should initialize as display none', () => {
-    expect(el.hasClass(displayNone)).to.be.true;
+    compileAndDigest();
+    expectHidden();
   });
 
-  it('should display when promise is in flight', inject(($timeout) => {
+  it('should display when promise is in flight', () => {
+    compileAndDigest();
     scope.aPromise = $timeout(() => {});
     scope.$digest();
-    expect(el.hasClass(displayNone)).to.be.false;
+    expectShowing();
     $timeout.flush();
     scope.$digest();
-    expect(el.hasClass(displayNone)).to.be.true;
-  }));
+    expectHidden();
+  });
 
   it('should log an error when the given value is not a promise and not show the element', inject(($log) => {
-    scope.$digest();
+    compileAndDigest();
     scope.aPromise = 'ಠ_ಠ';
     expect(() => scope.$digest()).to.throw('must pass a promise to az-promise-show');
     expect($log.error.logs).have.length(1);
-    expect(el.hasClass(displayNone)).to.be.true;
+    expectHidden();
   }));
+
+  it(`should allow you to specify a custom class`, () => {
+    const customClassName = 'display-none';
+    compileAndDigest(`<div az-promise-hide="aPromise" az-promise-show-hide-class="${customClassName}"></div>`);
+    scope.aPromise = $timeout(() => {});
+    scope.$digest();
+    expectHidden(customClassName);
+    $timeout.flush();
+    scope.$digest();
+    expectShowing(customClassName);
+  });
+
+  function compileAndDigest(template = basicTemplate) {
+    el = $compile(template)(scope);
+    scope.$digest();
+  }
+
+  function expectShowing(className = 'ng-hide') {
+    expect(el.hasClass(className)).to.be.false;
+  }
+
+  function expectHidden(className = 'ng-hide') {
+    expect(el.hasClass(className)).to.be.true;
+  }
 });
