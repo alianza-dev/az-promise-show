@@ -1,4 +1,4 @@
-//! az-promise-show version 1.0.0 built with ♥ by Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com) (ó ì_í)=óò=(ì_í ò)
+//! az-promise-show version 1.1.0 built with ♥ by Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com) (ó ì_í)=óò=(ì_í ò)
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -77,19 +77,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  root = window;
 	}
 
-	exports['default'] = root.angular.module('azPromiseShow', []).directive('azPromiseShow', azPromise(true)).directive('azPromiseHide', azPromise(false)).name;
-	// <-- exported poprerty
+	exports['default'] = root.angular.module('azPromiseShow', []).constant('azPromiseShowOptions', { className: 'ng-hide' }).directive('azPromiseShow', azPromise(true)).directive('azPromiseHide', azPromise(false)).name;
+	// <-- exported property
 
 	function azPromise(show) {
 	  var attr = show ? 'azPromiseShow' : 'azPromiseHide';
 	  var changeTo = show ? 'removeClass' : 'addClass';
 	  var changeFrom = show ? 'addClass' : 'removeClass';
-	  return ( /* @ngInject */["$log", function azPromiseShowDefinition($log) {
+	  return ( /* @ngInject */["$log", "azPromiseShowOptions", function azPromiseShowDefinition($log, azPromiseShowOptions) {
 	      return {
 	        restrict: 'A',
 	        link: function link(scope, el, attrs) {
-	          var displayNone = attrs.azPromiseShowHideClass || 'ng-hide';
 	          scope.$watch(attrs[attr], function (newVal) {
+	            var displayNone = attrs.azPromiseShowHideClass || azPromiseShowOptions.className;
 	            if (newVal) {
 	              if (!newVal['finally']) {
 	                $log.error('Passed ', newVal, 'to', el, 'on scope', scope);

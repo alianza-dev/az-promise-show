@@ -1,3 +1,9 @@
+# 1.1.1
+
+## Bug Fixes
+
+- Forgot to build the project for the last release :-(
+
 # 1.1.0
 
 ## New Features
